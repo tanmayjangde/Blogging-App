@@ -1,4 +1,4 @@
-package com.tanmay.api.models
+package com.tanmay.api.models.responses
 
 
 import com.squareup.moshi.Json
