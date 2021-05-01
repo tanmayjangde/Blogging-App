@@ -5,4 +5,5 @@
     <color name="conduit_grey">#818a91</color>
     <color name="conduit_grey_dark">#51565A</color>
     <color name="white">#EFEFEF</color>
+    <color name="tranparent">#13000000</color>
 </resources>

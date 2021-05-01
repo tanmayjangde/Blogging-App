@@ -7,6 +7,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Test
 import kotlin.random.Random
 import com.tanmay.api.models.entities.UserCreds as UserCreds
+import com.tanmay.api.ConduitClient
 
 
 class ConduitClientTest {
