@@ -22,9 +22,9 @@ interface ConduitAPI {
             @Query("tag") tag: String?=null
     ): Response<ArticlesResponse>
 
-    @POST("users")
+    @POST("users/login")
     suspend fun loginUsers(
-        @Body userCreds: LoginRequest
+        @Body loginRequest: LoginRequest
     ):Response<UserResponse>
 
     @GET("articles/{slug}")

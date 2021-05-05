@@ -1,6 +1,5 @@
 package com.tanmay.bloggingapp.ui.feed
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,9 +15,13 @@ class FeedViewModel:ViewModel() {
     val feed:LiveData<List<Article>> = _feed
 
     fun fetchGlobalFeed()=viewModelScope.launch {
-        ArticlesRepo.getGlobalFeed().body()?.let{
-            _feed.postValue(it.articles)
-            Log.d("Feed", "feed fetched${it.articlesCount}")
+        ArticlesRepo.getGlobalFeed()?.let{
+            _feed.postValue(it)
+        }
+    }
+    fun fetchMyFeed()=viewModelScope.launch {
+        ArticlesRepo.getMyFeed()?.let {
+            _feed.postValue(it)
         }
     }
 }

@@ -7,9 +7,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class UserCreds(
     @Json(name = "email")
-    val email: String,
+    val email: String?,
     @Json(name = "password")
-    val password: String,
+    val password: String?,
     @Json(name = "username")
-    val username: String
+    val username: String?
 )
