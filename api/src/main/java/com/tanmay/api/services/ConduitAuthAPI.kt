@@ -44,4 +44,5 @@ interface ConduitAuthAPI {
     suspend fun unfavouriteArticle(
             @Path("slug")slug:String
     ):Response<ArticlesResponse>
+
 }

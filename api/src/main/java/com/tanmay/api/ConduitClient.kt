@@ -10,25 +10,25 @@ import java.util.concurrent.TimeUnit
 
 object ConduitClient {
 
-    var authToken : String ?= null
+    var authToken: String? = null
 
-    private val authInterceptor = Interceptor{ chain->
+    private val authInterceptor = Interceptor { chain ->
         var req = chain.request()
-        authToken?.let{
+        authToken?.let {
             req = req.newBuilder()
-                    .header("Authorisation","Token $it")
+                    .header("Authorization", "Token $it")
                     .build()
         }
         chain.proceed(req)
     }
 
     val okHttpBuilder = OkHttpClient.Builder()
-        .readTimeout(5, TimeUnit.SECONDS)
-        .connectTimeout(2,TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
+            .connectTimeout(2, TimeUnit.SECONDS)
 
     val retrofitBuilder = Retrofit.Builder()
-        .baseUrl("https://conduit.productionready.io/api/")
-        .addConverterFactory(MoshiConverterFactory.create())
+            .baseUrl("https://conduit.productionready.io/api/")
+            .addConverterFactory(MoshiConverterFactory.create())
 
     val publicApi = retrofitBuilder
             .client(okHttpBuilder.build())
@@ -39,4 +39,5 @@ object ConduitClient {
             .client(okHttpBuilder.addInterceptor(authInterceptor).build())
             .build()
             .create(ConduitAuthAPI::class.java)
+
 }

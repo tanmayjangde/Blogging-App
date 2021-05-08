@@ -1,5 +1,11 @@
 package com.tanmay.api.models.request
 
-import com.tanmay.api.models.responses.UserResponse
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import com.tanmay.api.models.entities.UserUpdateData
 
-data class UserUpdateRequest(val userResponse:UserResponse)
+@JsonClass(generateAdapter = true)
+data class UserUpdateRequest(
+        @Json(name = "user")
+        val user: UserUpdateData
+)
