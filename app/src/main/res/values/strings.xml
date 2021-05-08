@@ -9,4 +9,5 @@
 
     <string name="menu_feed">Feed</string>
     <string name="menu_auth">Authentication</string>
+    <string name="arg_article_id">ARTICLE_ID</string>
 </resources>

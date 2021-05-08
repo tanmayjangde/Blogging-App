@@ -12,16 +12,14 @@ import com.tanmay.api.models.entities.Article
 import com.tanmay.bloggingapp.R
 import com.tanmay.bloggingapp.databinding.ListItemArticleBinding
 
-class ArticleFeedAdapter : ListAdapter<Article, ArticleFeedAdapter.ArticleViewHolder>(
+class ArticleFeedAdapter(val onArticleClicked : (slug : String)-> Unit) : ListAdapter<Article, ArticleFeedAdapter.ArticleViewHolder>(
         object : DiffUtil.ItemCallback<Article>(){
             override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
                 return oldItem==newItem
             }
-
             override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
                 return oldItem.toString()==newItem.toString()
             }
-
         }
 ){
 
@@ -44,8 +42,10 @@ class ArticleFeedAdapter : ListAdapter<Article, ArticleFeedAdapter.ArticleViewHo
             authorTextView.text = article.author.username
             articleTitle.text = article.title
             bodySnippetText.text = article.body
-            dateTextView.text = "May 1st, 2021"
-            authorImageView.background = ColorDrawable(Color.GRAY)
+            dateTextView.text = "May 1st, 2021" //TODO: format actual date
+            authorImageView.background = ColorDrawable(Color.GRAY) //show actual image
+
+            root.setOnClickListener{ onArticleClicked(article.slug)}
         }
     }
 }
