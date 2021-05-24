@@ -12,32 +12,34 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tanmay.bloggingapp.R
 import com.tanmay.bloggingapp.databinding.FragmentFeedBinding
 
-class GlobalFeedFragment: Fragment() {
-
-    private var _binding : FragmentFeedBinding?=null
+class GlobalFeedFragment : Fragment() {
+    private var _binding: FragmentFeedBinding? = null
     private lateinit var viewModel: FeedViewModel
     private lateinit var feedAdapter: ArticleFeedAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
-        feedAdapter = ArticleFeedAdapter{ openArticle(it) }
+        feedAdapter = ArticleFeedAdapter { openArticle(it) }
 
-        _binding = FragmentFeedBinding.inflate(inflater,container,false)
+        _binding = FragmentFeedBinding.inflate(inflater, container, false)
         _binding?.feedRecyclerView?.layoutManager = LinearLayoutManager(context)
         _binding?.feedRecyclerView?.adapter = feedAdapter
-        viewModel.fetchGlobalFeed()
-        viewModel.feed.observe({lifecycle}){
-            feedAdapter.submitList(it)
-        }
-
         return _binding?.root
     }
 
-    fun openArticle(articleId: String){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchGlobalFeed()
+        viewModel.feed.observe({ lifecycle }) {
+            feedAdapter.submitList(it)
+        }
+    }
+
+    fun openArticle(articleId: String) {
         findNavController().navigate(
                 R.id.action_globalFeed_openArticle,
                 bundleOf(
@@ -46,8 +48,8 @@ class GlobalFeedFragment: Fragment() {
         )
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding=null
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import com.tanmay.bloggingapp.AuthViewModel
 import com.tanmay.bloggingapp.databinding.FragmentSettingsBinding
 
+
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
@@ -52,5 +53,6 @@ class SettingsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
     }
 }

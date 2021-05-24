@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tanmay.bloggingapp.R
 import com.tanmay.bloggingapp.databinding.FragmentArticleBinding
+import com.tanmay.bloggingapp.extensions.loadImage
+import com.tanmay.bloggingapp.extensions.timeStamp
 
 class ArticleFragment : Fragment() {
 
@@ -16,9 +18,9 @@ class ArticleFragment : Fragment() {
     private var articleId: String? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         articleViewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
@@ -40,12 +42,10 @@ class ArticleFragment : Fragment() {
                 titleTextView.text = it.title
                 bodyTextView.text = it.body
                 authorTextView.text = it.author.username
-                dateTextView.text = it.createdAt
-                //avatarImageView.loadImage(it.author.image, true)
+                dateTextView.timeStamp = it.createdAt
+                avatarImageView.loadImage(it.author.image, true)
             }
         }
-
-
     }
 
     override fun onDestroyView() {

@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/avatarImageView"
-            android:background="@color/conduit_grey"
+            tools:background="@color/conduit_grey"
             android:layout_width="32dp"
             android:layout_height="32dp"/>
 

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class AuthViewModel:ViewModel() {
 
-    private val _user = MutableLiveData<User>()
+    private val _user = MutableLiveData<User?>()
     val user: LiveData<User?> = _user
     fun login(email: String, password: String) = viewModelScope.launch {
         UserRepo.login(email, password)?.let {
@@ -32,5 +32,13 @@ class AuthViewModel:ViewModel() {
         UserRepo.updateUser(bio, username, image, email, password)?.let {
             _user.postValue(it)
         }
+    }
+    fun getCurrentUser(token : String) = viewModelScope.launch {
+        UserRepo.getCurrentUser(token)?.let{
+            _user.postValue(it)
+        }
+    }
+    fun logout(){
+        _user.postValue(null)
     }
 }

@@ -13,7 +13,8 @@ import com.tanmay.bloggingapp.R
 import com.tanmay.bloggingapp.databinding.FragmentFeedBinding
 
 class MyFeedFragment : Fragment() {
-    private var _binding : FragmentFeedBinding?=null
+
+    private var _binding: FragmentFeedBinding? = null
     private lateinit var viewModel: FeedViewModel
     private lateinit var feedAdapter: ArticleFeedAdapter
 
@@ -25,32 +26,30 @@ class MyFeedFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
         feedAdapter = ArticleFeedAdapter { openArticle(it) }
 
-        _binding = FragmentFeedBinding.inflate(inflater,container,false)
+        _binding = FragmentFeedBinding.inflate(inflater, container, false)
         _binding?.feedRecyclerView?.layoutManager = LinearLayoutManager(context)
         _binding?.feedRecyclerView?.adapter = feedAdapter
-
         return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchMyFeed()
-        viewModel.feed.observe({lifecycle}){
+        viewModel.feed.observe({ lifecycle }) {
             feedAdapter.submitList(it)
         }
     }
 
-    fun openArticle(articleId: String){
+    fun openArticle(articleId: String) {
         findNavController().navigate(
                 R.id.action_globalFeed_openArticle,
                 bundleOf(
-                        Pair(resources.getString(R.string.arg_article_id) ,articleId)
+                        resources.getString(R.string.arg_article_id) to articleId
                 )
         )
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding=null
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
